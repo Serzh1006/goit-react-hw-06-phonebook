@@ -1,10 +1,15 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/phoneBookSlice';
+import { getContacts } from 'redux/selectors';
 import css from './phonebook.module.css';
 
-const PhoneBook = ({ createContact }) => {
+const PhoneBook = () => {
   const [nameUser, setNameUser] = useState('');
   const [number, setNumber] = useState('');
+
+  const dataContacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const getValue = e => {
     const { name, value } = e.target;
@@ -25,8 +30,17 @@ const PhoneBook = ({ createContact }) => {
 
   const onSubmitForm = e => {
     e.preventDefault();
-
-    createContact(nameUser, number);
+    const findName = dataContacts.find(
+      contact => contact.nameUser === nameUser
+    );
+    if (findName !== undefined) {
+      alert(`${findName.nameUser} is already in contacts`);
+      setNameUser('');
+      setNumber('');
+      return;
+    } else {
+      dispatch(addContact(nameUser, number));
+    }
     setNameUser('');
     setNumber('');
   };
@@ -72,7 +86,3 @@ const PhoneBook = ({ createContact }) => {
 };
 
 export default PhoneBook;
-
-PhoneBook.propTypes = {
-  createContact: PropTypes.func.isRequired,
-};

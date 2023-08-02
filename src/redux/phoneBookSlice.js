@@ -4,7 +4,6 @@ import storage from 'redux-persist/lib/storage';
 
 const contactsState = {
   contacts: [],
-  filter: '',
 };
 
 const phoneBookSlice = createSlice({
@@ -31,9 +30,6 @@ const phoneBookSlice = createSlice({
       );
       state.contacts.splice(indexElem, 1);
     },
-    filterByName(state, action) {
-      state.filter = action.payload;
-    },
   },
 });
 
@@ -47,5 +43,4 @@ export const persistedReducer = persistReducer(
   phoneBookSlice.reducer
 );
 
-export const { addContact, deleteContact, filterByName } =
-  phoneBookSlice.actions;
+export const { addContact, deleteContact } = phoneBookSlice.actions;

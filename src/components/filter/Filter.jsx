@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilter } from 'redux/selectors';
-import { filterByName } from 'redux/phoneBookSlice';
+import { filterByName } from 'redux/filterSlice';
 import css from './filter.module.css';
 
 const Filter = () => {

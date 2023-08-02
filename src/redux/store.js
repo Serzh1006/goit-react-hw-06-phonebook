@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistedReducer } from './phoneBookSlice';
 import { persistStore } from 'redux-persist';
+import { filterReducer } from './filterSlice';
 import {
   FLUSH,
   REHYDRATE,
@@ -13,6 +14,7 @@ import {
 export const store = configureStore({
   reducer: {
     contacts: persistedReducer,
+    filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
